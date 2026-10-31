@@ -1,22 +1,22 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-10-31T12:53:20+00:00",
+ "checked_at": "2026-10-31T16:48:52+00:00",
  "error": null,
  "position": {
-  "lat": 50.90447,
-  "lon": -1.42897,
-  "speed_knots": 0,
-  "heading": 117,
-  "time": "2026-10-31T12:49:26+00:00"
+  "lat": 50.86333,
+  "lon": -1.36451,
+  "speed_knots": 10.2,
+  "heading": 128,
+  "time": "2026-10-31T16:47:07+00:00"
  },
  "location": "at Southampton",
  "sea": "the Solent",
- "home_km": 0,
- "sailed_km": 0,
+ "home_km": 6,
+ "sailed_km": 6,
  "facts": {
   "featured": {
-   "text": "Nearby: Christ Church is the parish church for Freemantle in Southampton.",
-   "url": "https://en.wikipedia.org/wiki/Christ_Church%2C_Freemantle"
+   "text": "Nearby: Hound is a village and civil parish in the borough of Eastleigh in southern Hampshire, England.",
+   "url": "https://en.wikipedia.org/wiki/Hound%2C_Hampshire"
   },
   "all": [
    {
