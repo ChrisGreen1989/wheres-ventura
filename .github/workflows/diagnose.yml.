@@ -1,0 +1,52 @@
+name: Diagnose the signal
+
+on:
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - run: pip install websockets==15.0.1
+      - name: See which ships the key receives
+        env:
+          AISSTREAM_API_KEY: ${{ secrets.AISSTREAM_API_KEY }}
+        run: |
+          python - <<'PY'
+          import asyncio, json, os
+          from websockets.asyncio.client import connect
+
+          VENTURA = 310562000
+          AREAS = [
+              ("Southampton and the Solent", [[50.5, -2.0], [51.0, -0.8]], 120),
+              ("The whole world", [[-90, -180], [90, 180]], 30),
+          ]
+
+          async def sample(name, box, seconds):
+              ships, messages, ventura = {}, 0, 0
+              try:
+                  async with asyncio.timeout(seconds):
+                      async with connect("wss://stream.aisstream.io/v0/stream", open_timeout=20) as socket:
+                          await socket.send(json.dumps({"APIKey": os.environ["AISSTREAM_API_KEY"], "BoundingBoxes": [box]}))
+                          async for raw in socket:
+                              data = json.loads(raw)
+                              if "error" in data:
+                                  print(f"{name}: AISStream error: {data['error']}")
+                                  return
+                              meta = data.get("MetaData", {})
+                              messages += 1
+                              ships[meta.get("MMSI")] = str(meta.get("ShipName", "")).strip()
+                              ventura += meta.get("MMSI") == VENTURA
+                          print(f"{name}: connection closed by AISStream")
+              except TimeoutError:
+                  pass
+              except Exception as problem:
+                  print(f"{name}: connection failed: {type(problem).__name__}")
+              print(f"{name}: {messages} messages from {len(ships)} ships in {seconds}s. Ventura messages: {ventura}")
+              if name.startswith("Southampton"):
+                  print("Ships seen:", ", ".join(sorted(n for n in ships.values() if n)[:40]) or "none")
+
+          for area in AREAS:
+              asyncio.run(sample(*area))
+          PY
