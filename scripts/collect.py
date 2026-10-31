@@ -1,40 +1,33 @@
-"""Listen briefly to AISStream for the ship's position and update the site's data files."""
-import asyncio
+"""Ask VesselAPI for the ship's latest position and update the site's data files."""
 import json
 import os
 import sys
 from datetime import date, datetime, timezone
 from pathlib import Path
-
-from websockets.asyncio.client import connect
-from websockets.exceptions import ConnectionClosed
+from urllib.error import HTTPError
+from urllib.request import Request, urlopen
 
 import facts
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = Path(os.environ.get("DATA_DIR", ROOT / "docs" / "data"))
-AIS_URL = os.environ.get("AIS_URL", "wss://stream.aisstream.io/v0/stream")
-LISTEN_SECONDS = int(os.environ.get("LISTEN_SECONDS", "420"))
+API_URL = os.environ.get("VESSEL_API_URL", "https://api.vesselapi.com/v1")
 MIN_MOVE_KM = 0.5
 MAX_GAP_SECONDS = 6 * 3600
 
 
-def parse_position(message, mmsi):
-    """Turn any AISStream message into a fix, or None if it has no usable position for this ship.
-
-    Only position reports carry speed and heading, but every message type has coordinates.
-    """
-    meta = message.get("MetaData", {})
-    report = message.get("Message", {}).get("PositionReport", {})
-    if str(meta.get("MMSI")) != str(mmsi) or report.get("Valid") is False:
+def parse_position(payload, mmsi):
+    """Turn a VesselAPI response into a fix, or None if it has no usable position for this ship."""
+    position = payload.get("vesselPosition") or {}
+    if str(position.get("mmsi")) != str(mmsi) or position.get("suspected_glitch"):
         return None
-    lat, lon = meta.get("Latitude"), meta.get("Longitude")
-    if lat is None or lon is None or not (-90 <= lat <= 90 and -180 <= lon <= 180) or (lat == 0 and lon == 0):
+    lat, lon, seen = position.get("latitude"), position.get("longitude"), position.get("timestamp")
+    if lat is None or lon is None or not seen or not (-90 <= lat <= 90 and -180 <= lon <= 180) or (lat == 0 and lon == 0):
         return None
     # AIS uses these out-of-range values to mean "not available".
-    speed = report.get("Sog")
-    heading = report.get("TrueHeading")
-    course = report.get("Cog")
+    speed = position.get("sog")
+    heading = position.get("heading")
+    course = position.get("cog")
     if heading is None or heading >= 360:
         heading = course if course is not None and course < 360 else None
     return {
@@ -42,44 +35,27 @@ def parse_position(message, mmsi):
         "lon": round(lon, 5),
         "speed_knots": speed if speed is not None and speed < 102.3 else None,
         "heading": heading,
-        "time": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        # The time the ship reported this, which can be hours before we asked.
+        "time": datetime.fromisoformat(seen).astimezone(timezone.utc).isoformat(timespec="seconds"),
     }
 
 
-async def listen(api_key, mmsi, seconds):
-    subscription = {
-        "APIKey": api_key,
-        "BoundingBoxes": [[[-90, -180], [90, 180]]],
-    }
-    heard = 0
+def fetch_position(api_key, mmsi):
+    request = Request(
+        f"{API_URL}/vessel/{mmsi}/position?filter.idType=mmsi",
+        headers={"Authorization": f"Bearer {api_key}", "User-Agent": "wheres-ventura"},
+    )
     try:
-        async with asyncio.timeout(seconds):
-            while True:
-                heard_before = heard
-                try:
-                    async with connect(AIS_URL, open_timeout=20) as socket:
-                        await socket.send(json.dumps(subscription))
-                        async for raw in socket:
-                            message = json.loads(raw)
-                            if "error" in message:
-                                raise RuntimeError(f"AISStream said: {message['error']}")
-                            heard += 1
-                            # Filter here, because the ship filter on AISStream's side returned nothing.
-                            if str(message.get("MetaData", {}).get("MMSI")) != str(mmsi):
-                                continue
-                            fix = parse_position(message, mmsi)
-                            print(f"Received {message.get('MessageType')} after {heard} messages: {fix}")
-                            if fix:
-                                return fix
-                except ConnectionClosed:
-                    pass
-                # A drop after some data is routine on a stream this busy, so carry on listening.
-                if heard == heard_before:
-                    raise RuntimeError("AISStream closed the connection. Check the API key.")
-                print(f"Connection dropped after {heard} messages, reconnecting.")
-    except TimeoutError:
-        print(f"Heard {heard} messages from other ships, none usable from this one.")
-        return None  # Normal when the ship is out of range of AIS receivers.
+        with urlopen(request, timeout=30) as response:
+            payload = json.load(response)
+    except HTTPError as problem:
+        if problem.code == 404:
+            print("VesselAPI has no position from the last 80 hours.")
+            return None  # Normal when the ship is out of range of AIS receivers.
+        raise RuntimeError(f"VesselAPI answered with HTTP {problem.code}.")
+    fix = parse_position(payload, mmsi)
+    print(f"Reported position: {fix}")
+    return fix
 
 
 def load_json(path, default):
@@ -139,13 +115,13 @@ def main():
     if not date.fromisoformat(config["start_date"]) <= today <= date.fromisoformat(config["end_date"]):
         print("Outside the cruise dates, so there's nothing to collect.")
         return
-    api_key = os.environ.get("AISSTREAM_API_KEY")
+    api_key = os.environ.get("VESSELAPI_KEY")
     if not api_key:
-        sys.exit("AISSTREAM_API_KEY is not set.")
+        sys.exit("VESSELAPI_KEY is not set.")
 
     fix, error = None, None
     try:
-        fix = asyncio.run(listen(api_key, config["mmsi"], LISTEN_SECONDS))
+        fix = fetch_position(api_key, config["mmsi"])
     except Exception as problem:
         error = str(problem).replace(api_key, "***")
         print(f"::warning::{error}")
