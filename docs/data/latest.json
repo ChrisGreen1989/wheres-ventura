@@ -1,35 +1,38 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-10-31T16:48:52+00:00",
+ "checked_at": "2026-10-31T18:57:53+00:00",
  "error": null,
  "position": {
-  "lat": 50.86333,
-  "lon": -1.36451,
-  "speed_knots": 10.2,
-  "heading": 128,
-  "time": "2026-10-31T16:47:07+00:00"
+  "lat": 50.58837,
+  "lon": -0.9848,
+  "speed_knots": 15.7,
+  "heading": 180,
+  "time": "2026-10-31T18:56:30+00:00"
  },
- "location": "at Southampton",
- "sea": "the Solent",
- "home_km": 6,
- "sailed_km": 6,
+ "location": "about 50 km south-east of Southampton",
+ "sea": "the English Channel",
+ "home_km": 47,
+ "sailed_km": 47,
  "facts": {
   "featured": {
-   "text": "Nearby: Hound is a village and civil parish in the borough of Eastleigh in southern Hampshire, England.",
-   "url": "https://en.wikipedia.org/wiki/Hound%2C_Hampshire"
+   "text": "Nearby: German submarine U-1195 was a Type VIIC U-boat of Nazi Germany's Kriegsmarine.",
+   "url": "https://en.wikipedia.org/wiki/German_submarine_U-1195"
   },
   "all": [
    {
-    "text": "At this latitude, the Earth's spin carries the ship east at about 650 mph, whatever the captain is doing."
+    "text": "At this latitude, the Earth's spin carries the ship east at about 660 mph, whatever the captain is doing."
    },
    {
     "text": "The sun reaches its highest point here at almost the same moment as in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 50.9°S, 178.6°E, about 820 km from Dunedin."
+    "text": "Drill straight through the Earth from here and you'd surface at 50.6°S, 179.0°E, about 820 km from Dunedin."
    },
    {
-    "text": "This far north, they're roughly level with Calgary, even though it's a world away."
+    "text": "This far north, they're roughly level with Vancouver, even though it's a world away."
+   },
+   {
+    "text": "The seabed is roughly 32 m below the ship."
    }
   ]
  }
