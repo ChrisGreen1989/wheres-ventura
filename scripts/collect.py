@@ -13,21 +13,22 @@ import facts
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = Path(os.environ.get("DATA_DIR", ROOT / "docs" / "data"))
 AIS_URL = os.environ.get("AIS_URL", "wss://stream.aisstream.io/v0/stream")
-LISTEN_SECONDS = int(os.environ.get("LISTEN_SECONDS", "240"))
+LISTEN_SECONDS = int(os.environ.get("LISTEN_SECONDS", "420"))
 MIN_MOVE_KM = 0.5
 MAX_GAP_SECONDS = 6 * 3600
 
 
 def parse_position(message, mmsi):
-    """Turn an AISStream message into a fix, or None if it isn't a usable report for this ship."""
-    if message.get("MessageType") != "PositionReport":
-        return None
+    """Turn any AISStream message into a fix, or None if it has no usable position for this ship.
+
+    Only position reports carry speed and heading, but every message type has coordinates.
+    """
     meta = message.get("MetaData", {})
     report = message.get("Message", {}).get("PositionReport", {})
     if str(meta.get("MMSI")) != str(mmsi) or report.get("Valid") is False:
         return None
     lat, lon = meta.get("Latitude"), meta.get("Longitude")
-    if lat is None or lon is None or not (-90 <= lat <= 90 and -180 <= lon <= 180):
+    if lat is None or lon is None or not (-90 <= lat <= 90 and -180 <= lon <= 180) or (lat == 0 and lon == 0):
         return None
     # AIS uses these out-of-range values to mean "not available".
     speed = report.get("Sog")
@@ -49,7 +50,6 @@ async def listen(api_key, mmsi, seconds):
         "APIKey": api_key,
         "BoundingBoxes": [[[-90, -180], [90, 180]]],
         "FiltersShipMMSI": [str(mmsi)],
-        "FilterMessageTypes": ["PositionReport"],
     }
     try:
         async with asyncio.timeout(seconds):
@@ -60,6 +60,7 @@ async def listen(api_key, mmsi, seconds):
                     if "error" in message:
                         raise RuntimeError(f"AISStream said: {message['error']}")
                     fix = parse_position(message, mmsi)
+                    print(f"Received {message.get('MessageType')}: {fix}")
                     if fix:
                         return fix
     except TimeoutError:
