@@ -2,7 +2,7 @@ name: Track the ship
 
 on:
   schedule:
-    - cron: "7,37 * * * *"
+    - cron: "7 */3 * * *" # VesselAPI's free plan allows 150 calls a month.
     - cron: "30 7 * * *" # Morning email. GitHub can start scheduled runs late.
   workflow_dispatch:
     inputs:
@@ -32,11 +32,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install -r requirements.txt
 
-      - name: Listen for the ship's position
+      - name: Fetch the ship's position
         env:
-          AISSTREAM_API_KEY: ${{ secrets.AISSTREAM_API_KEY }}
+          VESSELAPI_KEY: ${{ secrets.VESSELAPI_KEY }}
         run: python scripts/collect.py
 
       - name: Save the new position
