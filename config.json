@@ -1,0 +1,11 @@
+{
+  "ship_name": "Ventura",
+  "mmsi": "310562000",
+  "cruisemapper_url": "https://www.cruisemapper.com/ships/Ventura-669",
+  "start_date": "2026-10-31",
+  "end_date": "2026-11-13",
+  "itinerary": [
+    { "date": "2026-10-31", "port": "Southampton, England", "note": "Departure", "lat": 50.904, "lon": -1.429 },
+    { "date": "2026-11-13", "port": "Southampton, England", "note": "Home", "lat": 50.904, "lon": -1.429 }
+  ]
+}

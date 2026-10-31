@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Where's Ventura?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  /* Layout: a full-bleed sea chart with the ship's log docked beside it (below it on phones). */
+  :root {
+    --navy: #0b2545; --sea: #cfe3ea; --paper: #f7fbfb; --ink: #12304f; --muted: #557086;
+    --signal: #f4c20d; --red: #d7263d; --live: #12835a; --line: #d5e2e6;
+    --display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+    --body: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", Consolas, monospace;
+  }
+  html, body { height: 100%; margin: 0; }
+  body { background: var(--navy); color: var(--ink); font: 16px/1.45 var(--body); }
+  .app { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 390px; }
+  #map { background: var(--sea); min-height: 0; z-index: 0; }
+  .log { background: var(--paper); overflow-y: auto; min-width: 0; }
+  .masthead { background: var(--navy); color: #fff; padding: 22px 24px 20px; display: grid; gap: 10px; }
+  h1 { font: 800 clamp(2rem, 5vw, 2.7rem)/1 var(--display); margin: 0; letter-spacing: -.02em; }
+  h1 em { font-style: normal; color: var(--signal); }
+  .where { font-size: 1.1rem; margin: 0; text-wrap: balance; }
+  .status { justify-self: start; font: 500 .78rem var(--mono); padding: 3px 9px; border-radius: 3px; background: #fff; color: var(--navy); }
+  .status.live { background: var(--live); color: #fff; }
+  .status.stale { background: var(--signal); color: var(--navy); }
+  .section { padding: 18px 24px; border-bottom: 1px solid var(--line); display: grid; gap: 10px; }
+  h2 { font: 500 .72rem var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 0; }
+  .readings { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; margin: 0; }
+  .readings div { min-width: 0; }
+  dt { font-size: .8rem; color: var(--muted); }
+  dd { margin: 0; font: 500 1.02rem var(--mono); font-variant-numeric: tabular-nums; }
+  .fact { background: var(--signal); color: var(--navy); }
+  .fact h2 { color: var(--navy); }
+  .fact p { margin: 0; font: 500 1.12rem/1.35 var(--display); }
+  .fact a { color: var(--navy); font-size: .9rem; }
+  ol.stops { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+  ol.stops li { display: grid; grid-template-columns: 62px 1fr; gap: 8px; }
+  ol.stops time { font: .84rem var(--mono); color: var(--muted); padding-top: 2px; }
+  ol.stops li.today { font-weight: 600; }
+  .sources { padding: 16px 24px 24px; font-size: .78rem; color: var(--muted); margin: 0; }
+  .sources a { color: inherit; }
+  .boat { background: none; border: 0; }
+  .boat svg { display: block; overflow: visible; filter: drop-shadow(0 3px 2px rgba(11, 37, 69, .35)); }
+  .boat .bob { animation: bob 3.2s ease-in-out infinite; transform-origin: 50% 80%; }
+  @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-1.2deg); } 50% { transform: translateY(-3px) rotate(1.2deg); } }
+  @media (prefers-reduced-motion: reduce) { .boat .bob { animation: none; } }
+  a:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+  @media (max-width: 800px) {
+    html, body { height: auto; }
+    .app { display: flex; flex-direction: column; height: auto; }
+    #map { height: 56vh; min-height: 300px; }
+    .log { overflow: visible; }
+    .masthead, .section, .sources {
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
+    }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div id="map" role="img" aria-label="Map showing the ship's position and route"></div>
+  <aside class="log">
+    <header class="masthead">
+      <h1>Where's <em>Ventura</em>?</h1>
+      <p class="where" id="where">Looking for the ship…</p>
+      <span class="status" id="status">Checking</span>
+    </header>
+    <section class="section fact" id="fact-box" hidden>
+      <h2>Fun fact from here</h2>
+      <p id="fact"></p>
+      <a id="fact-link" href="#" target="_blank" rel="noopener" hidden>Read more on Wikipedia</a>
+    </section>
+    <section class="section">
+      <h2>Ship's log</h2>
+      <dl class="readings">
+        <div><dt>Latitude</dt><dd id="lat">–</dd></div>
+        <div><dt>Longitude</dt><dd id="lon">–</dd></div>
+        <div><dt>Speed</dt><dd id="speed">–</dd></div>
+        <div><dt>Heading</dt><dd id="heading">–</dd></div>
+        <div><dt>From Southampton</dt><dd id="home">–</dd></div>
+        <div><dt>Tracked so far</dt><dd id="sailed">–</dd></div>
+      </dl>
+    </section>
+    <section class="section">
+      <h2 id="countdown">The voyage</h2>
+      <ol class="stops" id="stops"></ol>
+    </section>
+    <p class="sources">
+      Positions from <a href="https://aisstream.io" target="_blank" rel="noopener">AISStream</a>, checked about every 30 minutes.
+      Signal can drop far from shore. Depths from GEBCO via OpenTopoData, nearby facts from Wikipedia.
+      More about the ship on <a id="cm-link" href="https://www.cruisemapper.com/ships/Ventura-669" target="_blank" rel="noopener">CruiseMapper</a>.
+    </p>
+  </aside>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const STALE_HOURS = 2;
+const COMPASS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+const $ = (id) => document.getElementById(id);
+
+const map = L.map("map", { worldCopyJump: true, zoomControl: false }).setView([46, -5], 5);
+L.control.zoom({ position: "bottomleft" }).addTo(map);
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}", {
+  maxNativeZoom: 10, maxZoom: 13,
+  attribution: "Tiles &copy; Esri, GEBCO, NOAA, Garmin, HERE and others",
+}).addTo(map);
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}", {
+  maxNativeZoom: 10, maxZoom: 13,
+}).addTo(map);
+
+const SHIP_SVG = `<svg viewBox="0 0 96 48" width="96" height="48" aria-hidden="true"><g class="bob">
+  <rect x="53" y="4" width="11" height="13" rx="1.5" fill="#0b2545"/><rect x="53" y="7.5" width="11" height="3.5" fill="#f4c20d"/>
+  <path d="M24 28V19h6v-5h42l4 5h3v9z" fill="#fff" stroke="#0b2545" stroke-width="1.2"/>
+  <path d="M33 18h36M28 23h48" stroke="#2c6e91" stroke-width="2" stroke-dasharray="3 2"/>
+  <path d="M6 27h86l-7 15a3 3 0 0 1-3 2H19a5 5 0 0 1-4-2z" fill="#0b2545"/>
+  <path d="M8.5 32h81l-1 2.2H10z" fill="#d7263d"/>
+  <path d="M0 46c4-3 8-3 12 0s8 3 12 0" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+</g></svg>`;
+
+function shipIcon(heading) {
+  // The drawing faces left. Mirror it when the ship is sailing east.
+  const facingEast = heading !== null && heading !== undefined && heading > 0 && heading < 180;
+  return L.divIcon({
+    className: "boat", iconSize: [96, 48], iconAnchor: [48, 44],
+    html: `<div style="transform:scaleX(${facingEast ? -1 : 1})">${SHIP_SVG}</div>`,
+  });
+}
+
+const route = L.polyline([], { color: "#d7263d", weight: 3, dashArray: "2 8", lineCap: "round" }).addTo(map);
+let ship = null, centred = false, portLayer = L.layerGroup().addTo(map);
+
+function degrees(value, positive, negative) {
+  const abs = Math.abs(value), d = Math.floor(abs), m = (abs - d) * 60;
+  return `${d}° ${m.toFixed(2).padStart(5, "0")}′ ${value >= 0 ? positive : negative}`;
+}
+
+function ago(iso) {
+  const minutes = (Date.now() - new Date(iso)) / 60000;
+  if (minutes < 60) return `${Math.max(1, Math.round(minutes))} min ago`;
+  if (minutes < 2880) return `${Math.round(minutes / 60)} h ago`;
+  return `${Math.round(minutes / 1440)} days ago`;
+}
+
+function showConfig(config) {
+  const today = new Date().toISOString().slice(0, 10);
+  $("cm-link").href = config.cruisemapper_url;
+  const daysLeft = Math.round((new Date(config.end_date) - new Date(today)) / 86400000);
+  $("countdown").textContent = daysLeft > 0 ? `${daysLeft} day${daysLeft === 1 ? "" : "s"} until home`
+    : daysLeft === 0 ? "Home today" : "Voyage complete";
+  $("stops").replaceChildren(...config.itinerary.map((stop) => {
+    const item = document.createElement("li");
+    if (stop.date === today) item.className = "today";
+    const when = document.createElement("time");
+    when.dateTime = stop.date;
+    when.textContent = new Date(stop.date).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
+    const name = document.createElement("span");
+    name.textContent = stop.note ? `${stop.port} (${stop.note})` : stop.port;
+    item.append(when, name);
+    return item;
+  }));
+  portLayer.clearLayers();
+  for (const stop of config.itinerary) {
+    if (stop.lat === undefined || stop.lon === undefined) continue;
+    L.circleMarker([stop.lat, stop.lon], { radius: 5, color: "#0b2545", weight: 2, fillColor: "#f4c20d", fillOpacity: 1 })
+      .bindTooltip(stop.port).addTo(portLayer);
+  }
+}
+
+function showLatest(latest, track) {
+  const fix = latest.position;
+  if (!fix) {
+    $("where").textContent = "Waiting for the first signal from the ship.";
+    $("status").textContent = latest.error ? "Tracker needs attention" : "No signal yet";
+    $("status").className = "status stale";
+    return;
+  }
+  const hours = (Date.now() - new Date(fix.time)) / 3600000;
+  const stale = hours > STALE_HOURS;
+  $("where").textContent = `${stale ? "Last seen" : "Now"} ${latest.location}, in ${latest.sea}.`;
+  $("status").textContent = `${stale ? "Last signal" : "Live"} · ${ago(fix.time)}`;
+  $("status").className = `status ${stale ? "stale" : "live"}`;
+
+  $("lat").textContent = degrees(fix.lat, "N", "S");
+  $("lon").textContent = degrees(fix.lon, "E", "W");
+  const moving = fix.speed_knots !== null && fix.speed_knots >= 1;
+  $("speed").textContent = fix.speed_knots === null ? "–" : moving ? `${fix.speed_knots.toFixed(1)} kn` : "Stopped";
+  $("heading").textContent = fix.heading === null || !moving ? "–" : `${Math.round(fix.heading)}° ${COMPASS[Math.round(fix.heading / 45) % 8]}`;
+  $("home").textContent = `${latest.home_km.toLocaleString("en-GB")} km`;
+  $("sailed").textContent = `${(latest.sailed_km || 0).toLocaleString("en-GB")} km`;
+
+  const featured = latest.facts && latest.facts.featured;
+  $("fact-box").hidden = !featured;
+  if (featured) {
+    $("fact").textContent = featured.text;
+    $("fact-link").hidden = !featured.url;
+    if (featured.url) $("fact-link").href = featured.url;
+  }
+
+  const here = [fix.lat, fix.lon];
+  route.setLatLngs(track.map((p) => [p.lat, p.lon]));
+  if (!ship) ship = L.marker(here, { title: latest.ship, alt: "Cruise ship", keyboard: false }).addTo(map);
+  ship.setLatLng(here).setIcon(shipIcon(fix.heading));
+  if (!centred) { map.setView(here, 6); centred = true; }
+}
+
+async function refresh() {
+  const get = async (path, fallback) => {
+    try {
+      const response = await fetch(`${path}?t=${Date.now()}`);
+      return response.ok ? await response.json() : fallback;
+    } catch { return fallback; }
+  };
+  const [config, latest, track] = await Promise.all([get("data/config.json", null), get("data/latest.json", {}), get("data/track.json", [])]);
+  if (config) showConfig(config);
+  showLatest(latest, track);
+}
+
+refresh();
+setInterval(refresh, 5 * 60 * 1000);
+</script>
+</body>
+</html>
