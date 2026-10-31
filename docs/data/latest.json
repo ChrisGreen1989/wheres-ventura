@@ -1,5 +1,36 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-10-31T12:32:15+00:00",
- "error": null
+ "checked_at": "2026-10-31T12:46:11+00:00",
+ "error": null,
+ "position": {
+  "lat": 50.90447,
+  "lon": -1.42898,
+  "speed_knots": 0,
+  "heading": 117,
+  "time": "2026-10-31T12:43:27+00:00"
+ },
+ "location": "at Southampton",
+ "sea": "the Solent",
+ "home_km": 0,
+ "sailed_km": 0,
+ "facts": {
+  "featured": {
+   "text": "Nearby: Christ Church is the parish church for Freemantle in Southampton.",
+   "url": "https://en.wikipedia.org/wiki/Christ_Church%2C_Freemantle"
+  },
+  "all": [
+   {
+    "text": "At this latitude, the Earth's spin carries the ship east at about 650 mph, whatever the captain is doing."
+   },
+   {
+    "text": "The sun reaches its highest point here at almost the same moment as in Southampton."
+   },
+   {
+    "text": "Drill straight through the Earth from here and you'd surface at 50.9°S, 178.6°E, about 820 km from Dunedin."
+   },
+   {
+    "text": "This far north, they're roughly level with Calgary, even though it's a world away."
+   }
+  ]
+ }
 }
