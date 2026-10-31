@@ -1,0 +1,64 @@
+name: Track the ship
+
+on:
+  schedule:
+    - cron: "7,37 * * * *"
+    - cron: "30 7 * * *" # Morning email. GitHub can start scheduled runs late.
+  workflow_dispatch:
+    inputs:
+      send_email:
+        description: Send the email now
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: track
+  cancel-in-progress: false
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+
+      - name: Listen for the ship's position
+        env:
+          AISSTREAM_API_KEY: ${{ secrets.AISSTREAM_API_KEY }}
+        run: python scripts/collect.py
+
+      - name: Save the new position
+        run: |
+          git config user.name "cruise-tracker"
+          git config user.email "cruise-tracker@users.noreply.github.com"
+          mkdir -p docs/data
+          git add docs/data
+          git diff --cached --quiet || (git commit -m "Update ship position" && git push)
+
+      - name: Publish the site
+        run: cp config.json docs/data/config.json
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+      - id: deploy
+        uses: actions/deploy-pages@v4
+
+      - name: Send the morning email
+        if: github.event.schedule == '30 7 * * *' || inputs.send_email
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+        run: python scripts/send_update.py
