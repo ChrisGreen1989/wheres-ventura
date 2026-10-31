@@ -7,6 +7,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 
 from websockets.asyncio.client import connect
+from websockets.exceptions import ConnectionClosed
 
 import facts
 
@@ -53,24 +54,32 @@ async def listen(api_key, mmsi, seconds):
     heard = 0
     try:
         async with asyncio.timeout(seconds):
-            async with connect(AIS_URL, open_timeout=20) as socket:
-                await socket.send(json.dumps(subscription))
-                async for raw in socket:
-                    message = json.loads(raw)
-                    if "error" in message:
-                        raise RuntimeError(f"AISStream said: {message['error']}")
-                    heard += 1
-                    # Filter here, because the ship filter on AISStream's side returned nothing.
-                    if str(message.get("MetaData", {}).get("MMSI")) != str(mmsi):
-                        continue
-                    fix = parse_position(message, mmsi)
-                    print(f"Received {message.get('MessageType')} after {heard} messages: {fix}")
-                    if fix:
-                        return fix
+            while True:
+                heard_before = heard
+                try:
+                    async with connect(AIS_URL, open_timeout=20) as socket:
+                        await socket.send(json.dumps(subscription))
+                        async for raw in socket:
+                            message = json.loads(raw)
+                            if "error" in message:
+                                raise RuntimeError(f"AISStream said: {message['error']}")
+                            heard += 1
+                            # Filter here, because the ship filter on AISStream's side returned nothing.
+                            if str(message.get("MetaData", {}).get("MMSI")) != str(mmsi):
+                                continue
+                            fix = parse_position(message, mmsi)
+                            print(f"Received {message.get('MessageType')} after {heard} messages: {fix}")
+                            if fix:
+                                return fix
+                except ConnectionClosed:
+                    pass
+                # A drop after some data is routine on a stream this busy, so carry on listening.
+                if heard == heard_before:
+                    raise RuntimeError("AISStream closed the connection. Check the API key.")
+                print(f"Connection dropped after {heard} messages, reconnecting.")
     except TimeoutError:
         print(f"Heard {heard} messages from other ships, none usable from this one.")
         return None  # Normal when the ship is out of range of AIS receivers.
-    raise RuntimeError("AISStream closed the connection. Check the API key.")
 
 
 def load_json(path, default):
