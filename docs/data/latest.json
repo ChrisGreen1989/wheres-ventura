@@ -1,13 +1,13 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-10-31T12:46:11+00:00",
+ "checked_at": "2026-10-31T12:53:20+00:00",
  "error": null,
  "position": {
   "lat": 50.90447,
-  "lon": -1.42898,
+  "lon": -1.42897,
   "speed_knots": 0,
   "heading": 117,
-  "time": "2026-10-31T12:43:27+00:00"
+  "time": "2026-10-31T12:49:26+00:00"
  },
  "location": "at Southampton",
  "sea": "the Solent",
