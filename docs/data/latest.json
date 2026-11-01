@@ -1,37 +1,37 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-01T00:03:49+00:00",
+ "checked_at": "2026-11-01T05:55:16+00:00",
  "error": null,
  "position": {
-  "lat": 50.03037,
-  "lon": -2.71555,
-  "speed_knots": 14.1,
-  "heading": 244,
-  "time": "2026-11-01T00:02:42+00:00"
+  "lat": 49.07678,
+  "lon": -4.49124,
+  "speed_knots": 14.9,
+  "heading": 230,
+  "time": "2026-11-01T05:54:23+00:00"
  },
- "location": "about 90 km north-west of Cherbourg",
+ "location": "about 80 km north of Brest",
  "sea": "the English Channel",
- "home_km": 133,
- "sailed_km": 186,
+ "home_km": 299,
+ "sailed_km": 352,
  "facts": {
   "featured": {
-   "text": "The sun reaches its highest point here about 5 minutes after it does in Southampton."
+   "text": "The sun reaches its highest point here about 12 minutes after it does in Southampton."
   },
   "all": [
    {
-    "text": "At this latitude, the Earth's spin carries the ship east at about 670 mph, whatever the captain is doing."
+    "text": "At this latitude, the Earth's spin carries the ship east at about 680 mph, whatever the captain is doing."
    },
    {
-    "text": "The sun reaches its highest point here about 5 minutes after it does in Southampton."
+    "text": "The sun reaches its highest point here about 12 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 50.0°S, 177.3°E, about 680 km from Dunedin."
+    "text": "Drill straight through the Earth from here and you'd surface at 49.1°S, 175.5°E, about 520 km from Dunedin."
    },
    {
-    "text": "This far north, they're roughly level with Calgary, even though it's a world away."
+    "text": "This far north, they're roughly level with Winnipeg, even though it's a world away."
    },
    {
-    "text": "The seabed is roughly 64 m below the ship."
+    "text": "The seabed is roughly 90 m below the ship."
    }
   ]
  }
