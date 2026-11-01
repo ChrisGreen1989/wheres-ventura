@@ -1,37 +1,38 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-01T05:55:16+00:00",
+ "checked_at": "2026-11-01T09:22:47+00:00",
  "error": null,
  "position": {
-  "lat": 49.07678,
-  "lon": -4.49124,
-  "speed_knots": 14.9,
-  "heading": 230,
-  "time": "2026-11-01T05:54:23+00:00"
+  "lat": 48.53106,
+  "lon": -5.38175,
+  "speed_knots": 15.3,
+  "heading": 217,
+  "time": "2026-11-01T09:18:53+00:00"
  },
- "location": "about 80 km north of Brest",
- "sea": "the English Channel",
- "home_km": 299,
- "sailed_km": 352,
+ "location": "about 70 km west of Brest",
+ "sea": "the Bay of Biscay",
+ "home_km": 388,
+ "sailed_km": 441,
  "facts": {
   "featured": {
-   "text": "The sun reaches its highest point here about 12 minutes after it does in Southampton."
+   "text": "Nearby: German submarine U-629 was a Type VIIC U-boat built for Nazi Germany's Kriegsmarine for service during World War II.\nShe was laid down on 23 August 1941 by Blohm & Voss, Hamburg as yard number 605, launched on 12 May 1942 and commissioned on 2 July 1942 under Oberleutnant zur See Hans-Helmuth Bugs.",
+   "url": "https://en.wikipedia.org/wiki/German_submarine_U-629"
   },
   "all": [
    {
-    "text": "At this latitude, the Earth's spin carries the ship east at about 680 mph, whatever the captain is doing."
+    "text": "At this latitude, the Earth's spin carries the ship east at about 690 mph, whatever the captain is doing."
    },
    {
-    "text": "The sun reaches its highest point here about 12 minutes after it does in Southampton."
+    "text": "The sun reaches its highest point here about 16 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 49.1°S, 175.5°E, about 520 km from Dunedin."
+    "text": "Drill straight through the Earth from here and you'd surface at 48.5°S, 174.6°E, about 430 km from Dunedin."
    },
    {
     "text": "This far north, they're roughly level with Winnipeg, even though it's a world away."
    },
    {
-    "text": "The seabed is roughly 90 m below the ship."
+    "text": "The seabed is roughly 110 m below the ship."
    }
   ]
  }
