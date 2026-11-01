@@ -1,38 +1,37 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-01T09:22:47+00:00",
+ "checked_at": "2026-11-01T13:13:46+00:00",
  "error": null,
  "position": {
-  "lat": 48.53106,
-  "lon": -5.38175,
-  "speed_knots": 15.3,
-  "heading": 217,
-  "time": "2026-11-01T09:18:53+00:00"
+  "lat": 47.87489,
+  "lon": -6.05461,
+  "speed_knots": 16.7,
+  "heading": 218,
+  "time": "2026-11-01T12:16:25+00:00"
  },
- "location": "about 70 km west of Brest",
+ "location": "about 130 km south-west of Brest",
  "sea": "the Bay of Biscay",
- "home_km": 388,
- "sailed_km": 441,
+ "home_km": 475,
+ "sailed_km": 530,
  "facts": {
   "featured": {
-   "text": "Nearby: German submarine U-629 was a Type VIIC U-boat built for Nazi Germany's Kriegsmarine for service during World War II.\nShe was laid down on 23 August 1941 by Blohm & Voss, Hamburg as yard number 605, launched on 12 May 1942 and commissioned on 2 July 1942 under Oberleutnant zur See Hans-Helmuth Bugs.",
-   "url": "https://en.wikipedia.org/wiki/German_submarine_U-629"
+   "text": "The sun reaches its highest point here about 19 minutes after it does in Southampton."
   },
   "all": [
    {
-    "text": "At this latitude, the Earth's spin carries the ship east at about 690 mph, whatever the captain is doing."
+    "text": "At this latitude, the Earth's spin carries the ship east at about 700 mph, whatever the captain is doing."
    },
    {
-    "text": "The sun reaches its highest point here about 16 minutes after it does in Southampton."
+    "text": "The sun reaches its highest point here about 19 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 48.5°S, 174.6°E, about 430 km from Dunedin."
+    "text": "Drill straight through the Earth from here and you'd surface at 47.9°S, 173.9°E, about 340 km from Dunedin."
    },
    {
-    "text": "This far north, they're roughly level with Winnipeg, even though it's a world away."
+    "text": "This far north, they're roughly level with Seattle, even though it's a world away."
    },
    {
-    "text": "The seabed is roughly 110 m below the ship."
+    "text": "The seabed is roughly 140 m below the ship."
    }
   ]
  }
