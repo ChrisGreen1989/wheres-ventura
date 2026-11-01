@@ -1,37 +1,37 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-01T14:25:10+00:00",
+ "checked_at": "2026-11-01T17:44:40+00:00",
  "error": null,
  "position": {
-  "lat": 47.4949,
-  "lon": -6.45872,
-  "speed_knots": 16.2,
+  "lat": 47.36442,
+  "lon": -6.5987,
+  "speed_knots": 16.4,
   "heading": 215,
-  "time": "2026-11-01T13:58:18+00:00"
+  "time": "2026-11-01T14:34:06+00:00"
  },
- "location": "about 180 km south-west of Brest",
+ "location": "about 190 km south-west of Brest",
  "sea": "the Bay of Biscay",
- "home_km": 526,
- "sailed_km": 582,
+ "home_km": 544,
+ "sailed_km": 599,
  "facts": {
   "featured": {
-   "text": "The sun reaches its highest point here about 20 minutes after it does in Southampton."
+   "text": "The sun reaches its highest point here about 21 minutes after it does in Southampton."
   },
   "all": [
    {
     "text": "At this latitude, the Earth's spin carries the ship east at about 700 mph, whatever the captain is doing."
    },
    {
-    "text": "The sun reaches its highest point here about 20 minutes after it does in Southampton."
+    "text": "The sun reaches its highest point here about 21 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 47.5°S, 173.5°E, about 290 km from Dunedin."
+    "text": "Drill straight through the Earth from here and you'd surface at 47.4°S, 173.4°E, about 280 km from Dunedin."
    },
    {
     "text": "This far north, they're roughly level with Ulaanbaatar, even though it's a world away."
    },
    {
-    "text": "The seabed is roughly 182 m below the ship."
+    "text": "The seabed is roughly 2,021 m below the ship, which is about 6.1 Eiffel Towers stacked up."
    }
   ]
  }
