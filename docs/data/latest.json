@@ -1,37 +1,37 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-01T13:13:46+00:00",
+ "checked_at": "2026-11-01T14:25:10+00:00",
  "error": null,
  "position": {
-  "lat": 47.87489,
-  "lon": -6.05461,
-  "speed_knots": 16.7,
-  "heading": 218,
-  "time": "2026-11-01T12:16:25+00:00"
+  "lat": 47.4949,
+  "lon": -6.45872,
+  "speed_knots": 16.2,
+  "heading": 215,
+  "time": "2026-11-01T13:58:18+00:00"
  },
- "location": "about 130 km south-west of Brest",
+ "location": "about 180 km south-west of Brest",
  "sea": "the Bay of Biscay",
- "home_km": 475,
- "sailed_km": 530,
+ "home_km": 526,
+ "sailed_km": 582,
  "facts": {
   "featured": {
-   "text": "The sun reaches its highest point here about 19 minutes after it does in Southampton."
+   "text": "The sun reaches its highest point here about 20 minutes after it does in Southampton."
   },
   "all": [
    {
     "text": "At this latitude, the Earth's spin carries the ship east at about 700 mph, whatever the captain is doing."
    },
    {
-    "text": "The sun reaches its highest point here about 19 minutes after it does in Southampton."
+    "text": "The sun reaches its highest point here about 20 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 47.9°S, 173.9°E, about 340 km from Dunedin."
+    "text": "Drill straight through the Earth from here and you'd surface at 47.5°S, 173.5°E, about 290 km from Dunedin."
    },
    {
-    "text": "This far north, they're roughly level with Seattle, even though it's a world away."
+    "text": "This far north, they're roughly level with Ulaanbaatar, even though it's a world away."
    },
    {
-    "text": "The seabed is roughly 140 m below the ship."
+    "text": "The seabed is roughly 182 m below the ship."
    }
   ]
  }
