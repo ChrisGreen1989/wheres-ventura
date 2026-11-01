@@ -1,38 +1,37 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-10-31T19:14:40+00:00",
+ "checked_at": "2026-11-01T00:03:49+00:00",
  "error": null,
  "position": {
-  "lat": 50.53526,
-  "lon": -1.03702,
-  "speed_knots": 16.4,
-  "heading": 236,
-  "time": "2026-10-31T19:10:55+00:00"
+  "lat": 50.03037,
+  "lon": -2.71555,
+  "speed_knots": 14.1,
+  "heading": 244,
+  "time": "2026-11-01T00:02:42+00:00"
  },
- "location": "about 50 km south-east of Southampton",
+ "location": "about 90 km north-west of Cherbourg",
  "sea": "the English Channel",
- "home_km": 49,
- "sailed_km": 54,
+ "home_km": 133,
+ "sailed_km": 186,
  "facts": {
   "featured": {
-   "text": "Nearby: The action of 12 March 1672 was a naval battle of the Third Anglo-Dutch War between a squadron commanded by Sir Robert Holmes and Sir Frescheville Holles against the Smyrna convoy, which was protected by 5 warships under De Haaze and Cornelis Evertsen.",
-   "url": "https://en.wikipedia.org/wiki/Action_of_12_March_1672"
+   "text": "The sun reaches its highest point here about 5 minutes after it does in Southampton."
   },
   "all": [
    {
-    "text": "At this latitude, the Earth's spin carries the ship east at about 660 mph, whatever the captain is doing."
+    "text": "At this latitude, the Earth's spin carries the ship east at about 670 mph, whatever the captain is doing."
    },
    {
-    "text": "The sun reaches its highest point here at almost the same moment as in Southampton."
+    "text": "The sun reaches its highest point here about 5 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 50.5°S, 179.0°E, about 810 km from Dunedin."
+    "text": "Drill straight through the Earth from here and you'd surface at 50.0°S, 177.3°E, about 680 km from Dunedin."
    },
    {
-    "text": "This far north, they're roughly level with Vancouver, even though it's a world away."
+    "text": "This far north, they're roughly level with Calgary, even though it's a world away."
    },
    {
-    "text": "The seabed is roughly 31 m below the ship."
+    "text": "The seabed is roughly 64 m below the ship."
    }
   ]
  }
