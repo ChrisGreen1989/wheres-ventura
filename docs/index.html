@@ -46,7 +46,7 @@
   .sources { padding: 16px 24px 24px; font-size: .78rem; color: var(--muted); margin: 0; }
   .sources a { color: inherit; }
   .boat { background: none; border: 0; }
-  .boat svg { display: block; overflow: visible; filter: drop-shadow(0 3px 2px rgba(11, 37, 69, .35)); }
+  .boat svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 3px 2px rgba(11, 37, 69, .35)); }
   .boat .bob { animation: bob 3.2s ease-in-out infinite; transform-origin: 50% 80%; }
   @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-1.2deg); } 50% { transform: translateY(-3px) rotate(1.2deg); } }
   @media (prefers-reduced-motion: reduce) { .boat .bob { animation: none; } }
@@ -125,16 +125,19 @@ const SHIP_SVG = `<svg viewBox="0 0 96 48" width="96" height="48" aria-hidden="t
 </g></svg>`;
 
 function shipIcon(heading) {
+  // The boat shrinks as the map zooms out, so it never hides the coast around it.
+  const width = Math.round(Math.max(24, Math.min(84, 84 * 2 ** ((map.getZoom() - 8) / 2.5))));
   // The drawing faces left. Mirror it when the ship is sailing east.
   const facingEast = heading !== null && heading !== undefined && heading > 0 && heading < 180;
   return L.divIcon({
-    className: "boat", iconSize: [96, 48], iconAnchor: [48, 44],
+    className: "boat", iconSize: [width, width / 2], iconAnchor: [width / 2, width * 44 / 96],
     html: `<div style="transform:scaleX(${facingEast ? -1 : 1})">${SHIP_SVG}</div>`,
   });
 }
 
 const route = L.polyline([], { color: "#d7263d", weight: 3, dashArray: "2 8", lineCap: "round" }).addTo(map);
-let ship = null, centred = false, portLayer = L.layerGroup().addTo(map);
+let ship = null, shipHeading = null, centred = false, portLayer = L.layerGroup().addTo(map);
+map.on("zoomend", () => { if (ship) ship.setIcon(shipIcon(shipHeading)); });
 
 function degrees(value, positive, negative) {
   const abs = Math.abs(value), d = Math.floor(abs), m = (abs - d) * 60;
@@ -206,8 +209,9 @@ function showLatest(latest, track) {
   const here = [fix.lat, fix.lon];
   route.setLatLngs(track.map((p) => [p.lat, p.lon]));
   if (!ship) ship = L.marker(here, { title: latest.ship, alt: "Cruise ship", keyboard: false }).addTo(map);
-  ship.setLatLng(here).setIcon(shipIcon(fix.heading));
-  if (!centred) { map.setView(here, 6); centred = true; }
+  if (!centred) { map.setView(here, 6, { animate: false }); centred = true; }
+  shipHeading = fix.heading;
+  ship.setLatLng(here).setIcon(shipIcon(shipHeading));
 }
 
 async function refresh() {
