@@ -26,6 +26,7 @@
   h1 { font: 800 clamp(2rem, 5vw, 2.7rem)/1 var(--display); margin: 0; letter-spacing: -.02em; }
   h1 em { font-style: normal; color: var(--signal); }
   .where { font-size: 1.1rem; margin: 0; text-wrap: balance; }
+  .estimate { margin: 0; font-size: .95rem; color: #c9d6e3; text-wrap: balance; }
   .status { justify-self: start; font: 500 .78rem var(--mono); padding: 3px 9px; border-radius: 3px; background: #fff; color: var(--navy); }
   .status.live { background: var(--live); color: #fff; }
   .status.stale { background: var(--signal); color: var(--navy); }
@@ -47,6 +48,7 @@
   .sources a { color: inherit; }
   .boat { background: none; border: 0; }
   .boat svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 3px 2px rgba(11, 37, 69, .35)); }
+  .boat.ghost svg { opacity: .5; filter: grayscale(1) drop-shadow(0 3px 2px rgba(11, 37, 69, .25)); }
   .boat .bob { animation: bob 3.2s ease-in-out infinite; transform-origin: 50% 80%; }
   @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-1.2deg); } 50% { transform: translateY(-3px) rotate(1.2deg); } }
   @media (prefers-reduced-motion: reduce) { .boat .bob { animation: none; } }
@@ -70,6 +72,7 @@
     <header class="masthead">
       <h1>Where's <em>Nigel and Denise's</em> Cruise?</h1>
       <p class="where" id="where">Looking for the ship…</p>
+      <p class="estimate" id="estimate" hidden></p>
       <span class="status" id="status">Checking</span>
     </header>
     <section class="section fact" id="fact-box" hidden>
@@ -124,20 +127,74 @@ const SHIP_SVG = `<svg viewBox="0 0 96 48" width="96" height="48" aria-hidden="t
   <path d="M0 46c4-3 8-3 12 0s8 3 12 0" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
 </g></svg>`;
 
-function shipIcon(heading) {
+function shipIcon(heading, ghost = false) {
   // The boat shrinks as the map zooms out, so it never hides the coast around it.
   const width = Math.round(Math.max(24, Math.min(84, 84 * 2 ** ((map.getZoom() - 8) / 2.5))));
   // The drawing faces left. Mirror it when the ship is sailing east.
   const facingEast = heading !== null && heading !== undefined && heading > 0 && heading < 180;
   return L.divIcon({
-    className: "boat", iconSize: [width, width / 2], iconAnchor: [width / 2, width * 44 / 96],
+    className: ghost ? "boat ghost" : "boat", iconSize: [width, width / 2], iconAnchor: [width / 2, width * 44 / 96],
     html: `<div style="transform:scaleX(${facingEast ? -1 : 1})">${SHIP_SVG}</div>`,
   });
 }
 
 const route = L.polyline([], { color: "#d7263d", weight: 3, dashArray: "2 8", lineCap: "round" }).addTo(map);
+const guessLine = L.polyline([], { color: "#5b6b7c", weight: 2, dashArray: "1 7", lineCap: "round" }).addTo(map);
 let ship = null, shipHeading = null, centred = false, portLayer = L.layerGroup().addTo(map);
-map.on("zoomend", () => { if (ship) ship.setIcon(shipIcon(shipHeading)); });
+let ghost = null, ghostHeading = null, stops = [];
+map.on("zoomend", () => {
+  if (ship) ship.setIcon(shipIcon(shipHeading));
+  if (ghost) ghost.setIcon(shipIcon(ghostHeading, true));
+});
+
+function distanceKm(a, b) {
+  const rad = Math.PI / 180, dLat = (b[0] - a[0]) * rad, dLon = (b[1] - a[1]) * rad;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a[0] * rad) * Math.cos(b[0] * rad) * Math.sin(dLon / 2) ** 2;
+  return 12742 * Math.asin(Math.sqrt(h));
+}
+
+function estimate(fix, now) {
+  // A straight-line guess from the last signal through the published port times. Ports without times are skipped.
+  const start = { lat: fix.lat, lon: fix.lon, from: new Date(fix.time), to: new Date(fix.time) };
+  let previous = start;
+  for (const stop of stops) {
+    if (!stop.arrive && !stop.depart) continue;
+    const from = new Date(stop.arrive || stop.depart), to = new Date(stop.depart || stop.arrive);
+    if (to <= start.to) continue;
+    if (now < from) {
+      const share = Math.min(1, Math.max(0, (now - previous.to) / (from - previous.to)));
+      return { lat: previous.lat + (stop.lat - previous.lat) * share, lon: previous.lon + (stop.lon - previous.lon) * share,
+               next: stop, eastward: stop.lon > previous.lon };
+    }
+    if (now <= to) return { lat: stop.lat, lon: stop.lon, port: stop, eastward: false };
+    previous = { ...stop, from, to };
+  }
+  return null;
+}
+
+function when(iso) {
+  return new Date(iso).toLocaleString("en-GB", { weekday: "short", hour: "2-digit", minute: "2-digit", timeZone: "UTC" }) + " UTC";
+}
+
+function showEstimate(fix, stale) {
+  const guess = stale ? estimate(fix, new Date()) : null;
+  $("estimate").hidden = !guess;
+  if (!guess) {
+    if (ghost) { ghost.remove(); ghost = null; }
+    guessLine.setLatLngs([]);
+    return null;
+  }
+  const here = [guess.lat, guess.lon];
+  $("estimate").textContent = guess.port
+    ? `Best guess now: in port at ${guess.port.port} until ${when(guess.port.depart || guess.port.arrive)}.`
+    : `Best guess now: at sea, about ${Math.round(distanceKm(here, [guess.next.lat, guess.next.lon])).toLocaleString("en-GB")} km from ${guess.next.port}, due ${when(guess.next.arrive)}.`;
+  ghostHeading = guess.eastward ? 90 : 270;
+  if (!ghost) ghost = L.marker(here, { title: "Estimated position", alt: "Estimated position", keyboard: false, zIndexOffset: -100 })
+    .bindTooltip("Best guess", { direction: "bottom", offset: [0, 8] }).addTo(map);
+  ghost.setLatLng(here).setIcon(shipIcon(ghostHeading, true));
+  guessLine.setLatLngs([[fix.lat, fix.lon], here]);
+  return here;
+}
 
 function degrees(value, positive, negative) {
   const abs = Math.abs(value), d = Math.floor(abs), m = (abs - d) * 60;
@@ -168,6 +225,7 @@ function showConfig(config) {
     item.append(when, name);
     return item;
   }));
+  stops = config.itinerary;
   portLayer.clearLayers();
   for (const stop of config.itinerary) {
     if (stop.lat === undefined || stop.lon === undefined) continue;
@@ -208,8 +266,14 @@ function showLatest(latest, track) {
 
   const here = [fix.lat, fix.lon];
   route.setLatLngs(track.map((p) => [p.lat, p.lon]));
-  if (!ship) ship = L.marker(here, { title: latest.ship, alt: "Cruise ship", keyboard: false }).addTo(map);
-  if (!centred) { map.setView(here, 6, { animate: false }); centred = true; }
+  if (!ship) ship = L.marker(here, { title: latest.ship, alt: "Cruise ship", keyboard: false })
+    .bindTooltip("Last signal", { direction: "bottom", offset: [0, 8] }).addTo(map);
+  const guess = showEstimate(fix, stale);
+  if (!centred) {
+    if (guess) map.fitBounds([here, guess], { padding: [60, 60], maxZoom: 6, animate: false });
+    else map.setView(here, 6, { animate: false });
+    centred = true;
+  }
   shipHeading = fix.heading;
   ship.setLatLng(here).setIcon(shipIcon(shipHeading));
 }
