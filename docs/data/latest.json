@@ -1,21 +1,21 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-02T16:54:52+00:00",
+ "checked_at": "2026-11-02T17:19:33+00:00",
  "error": null,
  "position": {
-  "lat": 41.58776,
-  "lon": -11.5837,
-  "speed_knots": 15.5,
-  "heading": 206,
-  "time": "2026-11-02T16:48:40+00:00"
+  "lat": 41.48362,
+  "lon": -11.64399,
+  "speed_knots": 15.7,
+  "heading": 204,
+  "time": "2026-11-02T17:14:40+00:00"
  },
- "location": "about 250 km west of Vigo",
+ "location": "about 260 km west of Porto",
  "sea": "the North Atlantic",
- "home_km": 1295,
- "sailed_km": 1353,
+ "home_km": 1307,
+ "sailed_km": 1366,
  "facts": {
   "featured": {
-   "text": "Drill straight through the Earth from here and you'd surface at 41.6°S, 168.4°E, about 410 km from Christchurch."
+   "text": "Drill straight through the Earth from here and you'd surface at 41.5°S, 168.4°E, about 420 km from Christchurch."
   },
   "all": [
    {
@@ -25,13 +25,13 @@
     "text": "The sun reaches its highest point here about 41 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 41.6°S, 168.4°E, about 410 km from Christchurch."
+    "text": "Drill straight through the Earth from here and you'd surface at 41.5°S, 168.4°E, about 420 km from Christchurch."
    },
    {
     "text": "This far north, they're roughly level with Chicago, even though it's a world away."
    },
    {
-    "text": "The seabed is roughly 3,153 m below the ship, which is about 9.6 Eiffel Towers stacked up."
+    "text": "The seabed is roughly 3,411 m below the ship, which is about 10.3 Eiffel Towers stacked up."
    }
   ]
  }
