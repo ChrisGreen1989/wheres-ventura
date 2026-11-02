@@ -1,6 +1,6 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-01T19:35:46+00:00",
+ "checked_at": "2026-11-02T00:37:40+00:00",
  "error": null,
  "position": {
   "lat": 47.36442,
@@ -15,7 +15,7 @@
  "sailed_km": 599,
  "facts": {
   "featured": {
-   "text": "The sun reaches its highest point here about 21 minutes after it does in Southampton."
+   "text": "Drill straight through the Earth from here and you'd surface at 47.4°S, 173.4°E, about 280 km from Dunedin."
   },
   "all": [
    {
@@ -28,7 +28,7 @@
     "text": "Drill straight through the Earth from here and you'd surface at 47.4°S, 173.4°E, about 280 km from Dunedin."
    },
    {
-    "text": "This far north, they're roughly level with Ulaanbaatar, even though it's a world away."
+    "text": "This far north, they're roughly level with Seattle, even though it's a world away."
    },
    {
     "text": "The seabed is roughly 2,021 m below the ship, which is about 6.1 Eiffel Towers stacked up."
