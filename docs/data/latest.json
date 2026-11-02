@@ -1,37 +1,37 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-02T16:42:59+00:00",
+ "checked_at": "2026-11-02T16:54:52+00:00",
  "error": null,
  "position": {
-  "lat": 47.36442,
-  "lon": -6.5987,
-  "speed_knots": 16.4,
-  "heading": 215,
-  "time": "2026-11-01T14:34:06+00:00"
+  "lat": 41.58776,
+  "lon": -11.5837,
+  "speed_knots": 15.5,
+  "heading": 206,
+  "time": "2026-11-02T16:48:40+00:00"
  },
- "location": "about 190 km south-west of Brest",
- "sea": "the Bay of Biscay",
- "home_km": 544,
- "sailed_km": 599,
+ "location": "about 250 km west of Vigo",
+ "sea": "the North Atlantic",
+ "home_km": 1295,
+ "sailed_km": 1353,
  "facts": {
   "featured": {
-   "text": "Drill straight through the Earth from here and you'd surface at 47.4°S, 173.4°E, about 280 km from Dunedin."
+   "text": "Drill straight through the Earth from here and you'd surface at 41.6°S, 168.4°E, about 410 km from Christchurch."
   },
   "all": [
    {
-    "text": "At this latitude, the Earth's spin carries the ship east at about 700 mph, whatever the captain is doing."
+    "text": "At this latitude, the Earth's spin carries the ship east at about 780 mph, whatever the captain is doing."
    },
    {
-    "text": "The sun reaches its highest point here about 21 minutes after it does in Southampton."
+    "text": "The sun reaches its highest point here about 41 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 47.4°S, 173.4°E, about 280 km from Dunedin."
+    "text": "Drill straight through the Earth from here and you'd surface at 41.6°S, 168.4°E, about 410 km from Christchurch."
    },
    {
-    "text": "This far north, they're roughly level with Seattle, even though it's a world away."
+    "text": "This far north, they're roughly level with Chicago, even though it's a world away."
    },
    {
-    "text": "The seabed is roughly 2,021 m below the ship, which is about 6.1 Eiffel Towers stacked up."
+    "text": "The seabed is roughly 3,153 m below the ship, which is about 9.6 Eiffel Towers stacked up."
    }
   ]
  }
