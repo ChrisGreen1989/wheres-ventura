@@ -1,37 +1,37 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-02T17:19:33+00:00",
+ "checked_at": "2026-11-02T21:40:28+00:00",
  "error": null,
  "position": {
-  "lat": 41.48362,
-  "lon": -11.64399,
-  "speed_knots": 15.7,
-  "heading": 204,
-  "time": "2026-11-02T17:14:40+00:00"
+  "lat": 40.34908,
+  "lon": -12.29019,
+  "speed_knots": 17.5,
+  "heading": 201,
+  "time": "2026-11-02T21:36:39+00:00"
  },
- "location": "about 260 km west of Porto",
+ "location": "about 320 km west of Porto",
  "sea": "the North Atlantic",
- "home_km": 1307,
- "sailed_km": 1366,
+ "home_km": 1443,
+ "sailed_km": 1503,
  "facts": {
   "featured": {
-   "text": "Drill straight through the Earth from here and you'd surface at 41.5°S, 168.4°E, about 420 km from Christchurch."
+   "text": "Drill straight through the Earth from here and you'd surface at 40.3°S, 167.7°E, about 540 km from Christchurch."
   },
   "all": [
    {
-    "text": "At this latitude, the Earth's spin carries the ship east at about 780 mph, whatever the captain is doing."
+    "text": "At this latitude, the Earth's spin carries the ship east at about 790 mph, whatever the captain is doing."
    },
    {
-    "text": "The sun reaches its highest point here about 41 minutes after it does in Southampton."
+    "text": "The sun reaches its highest point here about 43 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 41.5°S, 168.4°E, about 420 km from Christchurch."
+    "text": "Drill straight through the Earth from here and you'd surface at 40.3°S, 167.7°E, about 540 km from Christchurch."
    },
    {
-    "text": "This far north, they're roughly level with Chicago, even though it's a world away."
+    "text": "This far north, they're roughly level with Beijing, even though it's a world away."
    },
    {
-    "text": "The seabed is roughly 3,411 m below the ship, which is about 10.3 Eiffel Towers stacked up."
+    "text": "The seabed is roughly 5,282 m below the ship, which is about 16.0 Eiffel Towers stacked up."
    }
   ]
  }
