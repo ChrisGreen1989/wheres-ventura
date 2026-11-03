@@ -1,37 +1,37 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-02T21:40:28+00:00",
+ "checked_at": "2026-11-03T06:38:53+00:00",
  "error": null,
  "position": {
-  "lat": 40.34908,
-  "lon": -12.29019,
-  "speed_knots": 17.5,
-  "heading": 201,
-  "time": "2026-11-02T21:36:39+00:00"
+  "lat": 37.9394,
+  "lon": -13.6283,
+  "speed_knots": 18.1,
+  "heading": 205,
+  "time": "2026-11-03T06:27:34+00:00"
  },
- "location": "about 320 km west of Porto",
+ "location": "about 400 km west of Lisbon",
  "sea": "the North Atlantic",
- "home_km": 1443,
- "sailed_km": 1503,
+ "home_km": 1732,
+ "sailed_km": 1795,
  "facts": {
   "featured": {
-   "text": "Drill straight through the Earth from here and you'd surface at 40.3°S, 167.7°E, about 540 km from Christchurch."
+   "text": "This far north, they're roughly level with San Francisco, even though it's a world away."
   },
   "all": [
    {
-    "text": "At this latitude, the Earth's spin carries the ship east at about 790 mph, whatever the captain is doing."
+    "text": "At this latitude, the Earth's spin carries the ship east at about 820 mph, whatever the captain is doing."
    },
    {
-    "text": "The sun reaches its highest point here about 43 minutes after it does in Southampton."
+    "text": "The sun reaches its highest point here about 49 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 40.3°S, 167.7°E, about 540 km from Christchurch."
+    "text": "Drill straight through the Earth from here and you'd surface at 37.9°S, 166.4°E, about 750 km from Auckland."
    },
    {
-    "text": "This far north, they're roughly level with Beijing, even though it's a world away."
+    "text": "This far north, they're roughly level with San Francisco, even though it's a world away."
    },
    {
-    "text": "The seabed is roughly 5,282 m below the ship, which is about 16.0 Eiffel Towers stacked up."
+    "text": "The seabed is roughly 4,136 m below the ship, which is about 12.5 Eiffel Towers stacked up."
    }
   ]
  }
