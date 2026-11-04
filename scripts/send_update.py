@@ -69,7 +69,10 @@ def build_email(config, latest, today, now, url):
 
     stop = port_today(config, today)
     if stop:
-        lines.append(f"Today's schedule: {stop['port']} ({stop['note']}).")
+        # Ports added later have no note, and Southampton has no times.
+        when = " to ".join(stop[k][11:16] for k in ("arrive", "depart") if stop.get(k))
+        details = ", ".join(part for part in (stop.get("note"), when and f"{when} UTC") if part)
+        lines.append(f"Today's schedule: {stop['port']}" + (f" ({details})." if details else "."))
     lines.append(countdown)
     if latest.get("error"):
         lines.append(f"Tracker problem: {latest['error']}")
