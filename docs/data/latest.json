@@ -1,13 +1,13 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-05T15:42:03+00:00",
+ "checked_at": "2026-11-05T17:20:47+00:00",
  "error": null,
  "position": {
-  "lat": 28.47373,
-  "lon": -16.24495,
+  "lat": 28.47375,
+  "lon": -16.24497,
   "speed_knots": 0,
   "heading": 20,
-  "time": "2026-11-05T15:37:51+00:00"
+  "time": "2026-11-05T17:16:50+00:00"
  },
  "location": "at Santa Cruz de Tenerife",
  "sea": "the waters around the Canary Islands",
