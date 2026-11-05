@@ -1,37 +1,38 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-04T21:16:36+00:00",
+ "checked_at": "2026-11-05T06:34:53+00:00",
  "error": null,
  "position": {
-  "lat": 31.39573,
-  "lon": -16.64146,
-  "speed_knots": 18.6,
+  "lat": 28.6268,
+  "lon": -16.07157,
+  "speed_knots": 12.9,
   "heading": 169,
-  "time": "2026-11-04T21:13:38+00:00"
+  "time": "2026-11-05T06:33:14+00:00"
  },
- "location": "about 140 km south of Funchal",
- "sea": "the North Atlantic",
- "home_km": 2504,
- "sailed_km": 2581,
+ "location": "about 30 km north-east of Santa Cruz de Tenerife",
+ "sea": "the waters around the Canary Islands",
+ "home_km": 2764,
+ "sailed_km": 2894,
  "facts": {
   "featured": {
-   "text": "The seabed is roughly 4,449 m below the ship, which is about 13.5 Eiffel Towers stacked up."
+   "text": "Nearby: \n\nThe Punta de Anaga Lighthouse is an active lighthouse on the Canary island of Tenerife, in the municipality of Santa Cruz de Tenerife.",
+   "url": "https://en.wikipedia.org/wiki/Punta_de_Anaga_Lighthouse"
   },
   "all": [
    {
-    "text": "At this latitude, the Earth's spin carries the ship east at about 890 mph, whatever the captain is doing."
+    "text": "At this latitude, the Earth's spin carries the ship east at about 910 mph, whatever the captain is doing."
    },
    {
-    "text": "The sun reaches its highest point here about 61 minutes after it does in Southampton."
+    "text": "The sun reaches its highest point here about 59 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 31.4°S, 163.4°E, about 1,170 km from Sydney."
+    "text": "Drill straight through the Earth from here and you'd surface at 28.6°S, 163.9°E, about 1,340 km from Sydney."
    },
    {
-    "text": "This far north, they're roughly level with Dallas, even though it's a world away."
+    "text": "This far north, they're roughly level with New Orleans, even though it's a world away."
    },
    {
-    "text": "The seabed is roughly 4,449 m below the ship, which is about 13.5 Eiffel Towers stacked up."
+    "text": "The seabed is roughly 1,274 m below the ship, which is about 3.9 Eiffel Towers stacked up."
    }
   ]
  }
