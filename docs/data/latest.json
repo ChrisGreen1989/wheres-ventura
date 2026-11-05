@@ -1,22 +1,22 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-05T06:34:53+00:00",
+ "checked_at": "2026-11-05T15:42:03+00:00",
  "error": null,
  "position": {
-  "lat": 28.6268,
-  "lon": -16.07157,
-  "speed_knots": 12.9,
-  "heading": 169,
-  "time": "2026-11-05T06:33:14+00:00"
+  "lat": 28.47373,
+  "lon": -16.24495,
+  "speed_knots": 0,
+  "heading": 20,
+  "time": "2026-11-05T15:37:51+00:00"
  },
- "location": "about 30 km north-east of Santa Cruz de Tenerife",
+ "location": "at Santa Cruz de Tenerife",
  "sea": "the waters around the Canary Islands",
- "home_km": 2764,
- "sailed_km": 2894,
+ "home_km": 2786,
+ "sailed_km": 2918,
  "facts": {
   "featured": {
-   "text": "Nearby: \n\nThe Punta de Anaga Lighthouse is an active lighthouse on the Canary island of Tenerife, in the municipality of Santa Cruz de Tenerife.",
-   "url": "https://en.wikipedia.org/wiki/Punta_de_Anaga_Lighthouse"
+   "text": "Nearby: The Battle of Santa Cruz de Tenerife was a minor military action of the War of the Spanish Succession during which an English fleet of 13 ships under the command of Admiral John Jennings attempted unsuccessfully to seize the city of Santa Cruz de Tenerife.",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Santa_Cruz_de_Tenerife_(1706)"
   },
   "all": [
    {
@@ -26,13 +26,10 @@
     "text": "The sun reaches its highest point here about 59 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 28.6°S, 163.9°E, about 1,340 km from Sydney."
+    "text": "Drill straight through the Earth from here and you'd surface at 28.5°S, 163.8°E, about 1,330 km from Sydney."
    },
    {
-    "text": "This far north, they're roughly level with New Orleans, even though it's a world away."
-   },
-   {
-    "text": "The seabed is roughly 1,274 m below the ship, which is about 3.9 Eiffel Towers stacked up."
+    "text": "This far north, they're roughly level with Houston, even though it's a world away."
    }
   ]
  }
