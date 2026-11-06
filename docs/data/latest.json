@@ -1,37 +1,37 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-05T23:35:36+00:00",
+ "checked_at": "2026-11-06T06:30:24+00:00",
  "error": null,
  "position": {
-  "lat": 28.71801,
-  "lon": -16.5288,
-  "speed_knots": 9.8,
-  "heading": 272,
-  "time": "2026-11-05T23:33:53+00:00"
+  "lat": 28.72373,
+  "lon": -17.41456,
+  "speed_knots": 8.5,
+  "heading": 263,
+  "time": "2026-11-06T04:37:03+00:00"
  },
- "location": "about 40 km north-west of Santa Cruz de Tenerife",
+ "location": "about 120 km west of Santa Cruz de Tenerife",
  "sea": "the waters around the Canary Islands",
- "home_km": 2771,
- "sailed_km": 2957,
+ "home_km": 2805,
+ "sailed_km": 3043,
  "facts": {
   "featured": {
-   "text": "At this latitude, the Earth's spin carries the ship east at about 910 mph, whatever the captain is doing."
+   "text": "The sun reaches its highest point here about 64 minutes after it does in Southampton."
   },
   "all": [
    {
     "text": "At this latitude, the Earth's spin carries the ship east at about 910 mph, whatever the captain is doing."
    },
    {
-    "text": "The sun reaches its highest point here about 60 minutes after it does in Southampton."
+    "text": "The sun reaches its highest point here about 64 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 28.7°S, 163.5°E, about 1,300 km from Sydney."
+    "text": "Drill straight through the Earth from here and you'd surface at 28.7°S, 162.6°E, about 1,220 km from Sydney."
    },
    {
-    "text": "This far north, they're roughly level with New Orleans, even though it's a world away."
+    "text": "This far north, they're roughly level with Houston, even though it's a world away."
    },
    {
-    "text": "The seabed is roughly 2,728 m below the ship, which is about 8.3 Eiffel Towers stacked up."
+    "text": "The seabed is roughly 3,276 m below the ship, which is about 9.9 Eiffel Towers stacked up."
    }
   ]
  }
