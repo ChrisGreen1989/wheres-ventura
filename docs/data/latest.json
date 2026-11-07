@@ -1,13 +1,13 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-07T12:53:31+00:00",
+ "checked_at": "2026-11-07T14:16:29+00:00",
  "error": null,
  "position": {
-  "lat": 28.13956,
-  "lon": -15.42152,
+  "lat": 28.13959,
+  "lon": -15.42151,
   "speed_knots": 0,
   "heading": 136,
-  "time": "2026-11-07T12:39:57+00:00"
+  "time": "2026-11-07T14:09:57+00:00"
  },
  "location": "at Las Palmas",
  "sea": "the waters around the Canary Islands",
