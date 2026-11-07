@@ -1,37 +1,38 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-06T23:03:02+00:00",
+ "checked_at": "2026-11-07T05:50:33+00:00",
  "error": null,
  "position": {
-  "lat": 28.81099,
-  "lon": -16.4608,
-  "speed_knots": 12.5,
-  "heading": 84,
-  "time": "2026-11-06T23:02:22+00:00"
+  "lat": 28.15208,
+  "lon": -15.31866,
+  "speed_knots": 12.1,
+  "heading": 185,
+  "time": "2026-11-07T05:45:23+00:00"
  },
- "location": "about 40 km north-west of Santa Cruz de Tenerife",
+ "location": "at Las Palmas",
  "sea": "the waters around the Canary Islands",
- "home_km": 2759,
- "sailed_km": 3137,
+ "home_km": 2786,
+ "sailed_km": 3270,
  "facts": {
   "featured": {
-   "text": "The sun reaches its highest point here about 60 minutes after it does in Southampton."
+   "text": "Nearby: Port of Las Palmas is port for fishing, commercial, passenger and sports boats in the city of Las Palmas in the north-east of Gran Canaria, Canary Islands, Spain.",
+   "url": "https://en.wikipedia.org/wiki/Port_of_Las_Palmas"
   },
   "all": [
    {
     "text": "At this latitude, the Earth's spin carries the ship east at about 910 mph, whatever the captain is doing."
    },
    {
-    "text": "The sun reaches its highest point here about 60 minutes after it does in Southampton."
+    "text": "The sun reaches its highest point here about 56 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 28.8°S, 163.5°E, about 1,300 km from Sydney."
+    "text": "Drill straight through the Earth from here and you'd surface at 28.2°S, 164.7°E, about 1,350 km from Auckland."
    },
    {
-    "text": "This far north, they're roughly level with Houston, even though it's a world away."
+    "text": "This far north, they're roughly level with Kathmandu, even though it's a world away."
    },
    {
-    "text": "The seabed is roughly 3,067 m below the ship, which is about 9.3 Eiffel Towers stacked up."
+    "text": "The seabed is roughly 1,753 m below the ship, which is about 5.3 Eiffel Towers stacked up."
    }
   ]
  }
