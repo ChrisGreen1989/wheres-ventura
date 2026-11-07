@@ -1,35 +1,37 @@
 {
  "ship": "Ventura",
- "checked_at": "2026-11-07T14:16:29+00:00",
+ "checked_at": "2026-11-07T19:22:45+00:00",
  "error": null,
  "position": {
-  "lat": 28.13959,
-  "lon": -15.42151,
-  "speed_knots": 0,
-  "heading": 136,
-  "time": "2026-11-07T14:09:57+00:00"
+  "lat": 28.14426,
+  "lon": -15.18382,
+  "speed_knots": 9.5,
+  "heading": 90,
+  "time": "2026-11-07T19:20:12+00:00"
  },
- "location": "at Las Palmas",
+ "location": "about 20 km east of Las Palmas",
  "sea": "the waters around the Canary Islands",
- "home_km": 2790,
- "sailed_km": 3280,
+ "home_km": 2782,
+ "sailed_km": 3304,
  "facts": {
   "featured": {
-   "text": "Nearby: Las Palmas Naval Base, also known as Arsenal of Las Palmas, is a military base and arsenal of the Spanish Navy located in the city of Las Palmas, Spain.",
-   "url": "https://en.wikipedia.org/wiki/Las_Palmas_Naval_Base"
+   "text": "Drill straight through the Earth from here and you'd surface at 28.1°S, 164.8°E, about 1,340 km from Auckland."
   },
   "all": [
    {
     "text": "At this latitude, the Earth's spin carries the ship east at about 910 mph, whatever the captain is doing."
    },
    {
-    "text": "The sun reaches its highest point here about 56 minutes after it does in Southampton."
+    "text": "The sun reaches its highest point here about 55 minutes after it does in Southampton."
    },
    {
-    "text": "Drill straight through the Earth from here and you'd surface at 28.1°S, 164.6°E, about 1,360 km from Auckland."
+    "text": "Drill straight through the Earth from here and you'd surface at 28.1°S, 164.8°E, about 1,340 km from Auckland."
    },
    {
     "text": "This far north, they're roughly level with Kathmandu, even though it's a world away."
+   },
+   {
+    "text": "The seabed is roughly 1,723 m below the ship, which is about 5.2 Eiffel Towers stacked up."
    }
   ]
  }
